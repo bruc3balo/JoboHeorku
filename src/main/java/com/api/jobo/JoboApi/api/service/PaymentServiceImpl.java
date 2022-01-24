@@ -172,7 +172,7 @@ public class PaymentServiceImpl implements PaymentService {
         Calendar today = Calendar.getInstance();
 
         Calendar startToday = Calendar.getInstance();
-        startToday.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH) - 1, 23, 59);
+        startToday.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), 0, 0);
 
         Calendar endToday = Calendar.getInstance();
         startToday.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), 23, 59);
@@ -189,7 +189,7 @@ public class PaymentServiceImpl implements PaymentService {
         startMonth.set(year != null ? year : today.get(Calendar.YEAR), month, 0, 0, 0);
 
         Calendar endMonth = Calendar.getInstance();
-        endMonth.set(year != null ? year : today.get(Calendar.YEAR), month, getLastDayofMonth(month,year), 23, 59);
+        endMonth.set(year != null ? year : today.get(Calendar.YEAR), month, getLastDayofMonth(month, year != null ? year : endMonth.get(Calendar.YEAR)), 23, 59);
 
         return paymentRepo.findAll().stream().filter(payment -> payment.getCreatedAt().before(endMonth.getTime()) && payment.getCreatedAt().after(startMonth.getTime()) && payment.isPaid()).map(payment -> new CashFlowTime(payment.getCreatedAt(), new BigDecimal(payment.getAmount()))).collect(Collectors.toList());
     }
@@ -201,12 +201,12 @@ public class PaymentServiceImpl implements PaymentService {
         startYear.set(year, Calendar.JANUARY, 0, 0, 0);
 
         Calendar endYear = Calendar.getInstance();
-        endYear.set(year, Calendar.DECEMBER, getLastDayofMonth(Calendar.DECEMBER,year), 23, 59);
+        endYear.set(year, Calendar.DECEMBER, getLastDayofMonth(Calendar.DECEMBER, year), 23, 59);
 
         return paymentRepo.findAll().stream().filter(payment -> payment.getCreatedAt().before(endYear.getTime()) && payment.getCreatedAt().after(startYear.getTime()) && payment.isPaid()).map(payment -> new CashFlowTime(payment.getCreatedAt(), new BigDecimal(payment.getAmount()))).collect(Collectors.toList());
     }
 
-    private int getLastDayofMonth(int month,int year) {
+    private int getLastDayofMonth(int month, int year) {
 
         if (month == 1) {
             //todo leap year
@@ -234,9 +234,7 @@ public class PaymentServiceImpl implements PaymentService {
                 // therefore century leap year
                 if (year % 400 == 0) {
                     is_leap_year = true;
-                }
-
-                else {
+                } else {
                     is_leap_year = false;
                 }
             }
@@ -255,9 +253,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         if (!is_leap_year) {
             System.out.println(year + " : Non Leap-year");
-        }
-
-        else {
+        } else {
             System.out.println(year + " : Leap-year");
         }
 
