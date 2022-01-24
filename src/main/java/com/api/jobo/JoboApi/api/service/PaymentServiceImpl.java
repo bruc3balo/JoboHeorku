@@ -175,7 +175,7 @@ public class PaymentServiceImpl implements PaymentService {
         startToday.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), 0, 0);
 
         Calendar endToday = Calendar.getInstance();
-        startToday.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), 23, 59);
+        endToday.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), 23, 59);
 
         return paymentRepo.findAll().stream().filter(payment -> payment.getCreatedAt().after(startToday.getTime()) && payment.getCreatedAt().before(endToday.getTime()) && payment.isPaid()).map(payment -> new CashFlowTime(payment.getCreatedAt(), new BigDecimal(payment.getAmount()))).collect(Collectors.toList());
     }
