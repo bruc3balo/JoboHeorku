@@ -16,7 +16,6 @@ public class GlobalRepo {
     public static FeedbackRepo feedbackRepo;
     public static NotificationRepository notificationRepo;
 
-
     //payment
     public static PaymentRepo paymentRepo;
     public static StkCallbackFirebaseRepo stkCallbackFirebaseRepo;
@@ -30,6 +29,7 @@ public class GlobalRepo {
     public void setUserRepo(StkCallbackFirebaseRepo stkCallbackFirebaseRepo) {
         GlobalRepo.stkCallbackFirebaseRepo = stkCallbackFirebaseRepo;
     }
+
 
     @Autowired
     public void setUserRepo(UserRepo userRepo) {

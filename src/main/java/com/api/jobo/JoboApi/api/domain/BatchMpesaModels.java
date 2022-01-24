@@ -5,33 +5,13 @@ import com.google.cloud.firestore.annotation.DocumentId;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.api.jobo.JoboApi.globals.GlobalVariables.*;
 
 
-public class MpesaModels {
-
-    @Getter
-    @Setter
-    public static class MpesaAuthResponse {
-        @JsonProperty("access_token")
-        private String accessToken;
-
-        @JsonProperty("expires_in")
-        private String expiresIn;
-
-        public MpesaAuthResponse(String accessToken, String expiresIn) {
-            this.accessToken = accessToken;
-            this.expiresIn = expiresIn;
-        }
-
-        public MpesaAuthResponse() {
-
-        }
-    }
+public class BatchMpesaModels {
 
     @Getter
     @Setter
@@ -44,15 +24,15 @@ public class MpesaModels {
         }
     }
 
+
     @Getter
     @Setter
     public static class MpesaCallBackBody {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        @DocumentId
+        private String id;
 
-        @JsonProperty(value = stkCallback)
+        @JsonProperty("stkCallback")
         private MpesaStkCallback mpesaStkCallback;
 
         public MpesaCallBackBody() {
@@ -69,9 +49,8 @@ public class MpesaModels {
 
     public static class MpesaCallbackMetadata {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        @DocumentId
+        private String id;
 
         @JsonProperty(value = Item)
         private List<MpesaCallbackMetadataItems> mpesaCallbackMetadataItems = new ArrayList<>();
@@ -86,9 +65,8 @@ public class MpesaModels {
     @Setter
     public static class MpesaCallbackMetadataItems {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        @DocumentId
+        private String id;
 
         @JsonProperty(value = Name)
         private String name;
@@ -108,14 +86,13 @@ public class MpesaModels {
 
     @Getter
     @Setter
+
     public static class MpesaCallBackModel {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        @DocumentId
+        private String id;
 
         @JsonProperty(value = Body)
-        @ManyToOne(fetch = FetchType.EAGER)
         private MpesaCallBackBody body;
 
         public MpesaCallBackModel() {
@@ -130,42 +107,40 @@ public class MpesaModels {
     @Setter
     public static class MpesaStkCallback {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @DocumentId
+        private String documentId;
+
+        @JsonProperty("id")
         private Long id;
 
-        @JsonProperty(value = "merchantRequestID")
-        @Column(name = MERCHANT_REQUEST_ID)
-        private String merchantRequestID;
+        @JsonProperty(value = MERCHANT_REQUEST_ID)
+        private String MerchantRequestID;
 
-        @JsonProperty(value = "checkoutRequestID")
-        @Column(name = CHECKOUT_REQUEST_ID)
-        private String checkoutRequestID;
+        @JsonProperty(value = CHECKOUT_REQUEST_ID)
+        private String CheckoutRequestID;
 
-        @JsonProperty(value = "resultCode")
-        @Column(name = ResultCode)
-        private int resultCode;
+        @JsonProperty(value = RESULT_CODE)
+        private Integer ResultCode;
 
-        @JsonProperty(value = "resultDesc")
-        @Column(name = ResultDesc)
-        private String resultDesc;
+        @JsonProperty(value = RESULT_DESC)
+        private String ResultDesc;
 
-        @JsonProperty(value = "callbackMetadata")
-        @ManyToOne(fetch = FetchType.EAGER)
-        private MpesaCallbackMetadata callbackMetadata;
+        @JsonProperty(value = CALLBACK_METADATA)
+        private MpesaCallbackMetadata CallbackMetadata;
 
         public MpesaStkCallback() {
 
         }
+
+
     }
 
     @Getter
     @Setter
     public static class STKPushResponseBody {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        @DocumentId
+        private String id;
 
         @JsonProperty(value = "MerchantRequestID")
         private String merchantRequestId;
@@ -193,48 +168,5 @@ public class MpesaModels {
             this.responseDescription = responseDescription;
         }
     }
-
-    @Getter
-    @Setter
-
-    public static class QueryResponse {
-
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-
-        @JsonProperty(value = "ResponseCode")
-        private int ResponseCode;
-
-        @JsonProperty(value = "ResponseDescription")
-        private String ResponseDescription;
-
-        @JsonProperty(value = "MerchantRequestID")
-        private String MerchantRequestID;
-
-        @JsonProperty(value = "CheckoutRequestID")
-        private String CheckoutRequestID;
-
-        @JsonProperty(value = "ResultCode")
-        private int ResultCode;
-
-        @JsonProperty(value = "ResultDesc")
-        private String ResultDesc;
-
-        public QueryResponse() {
-        }
-
-        public QueryResponse(int responseCode, String responseDescription, String merchantRequestID, String checkoutRequestID, int resultCode, String resultDesc) {
-            ResponseCode = responseCode;
-            ResponseDescription = responseDescription;
-            MerchantRequestID = merchantRequestID;
-            CheckoutRequestID = checkoutRequestID;
-            ResultCode = resultCode;
-            ResultDesc = resultDesc;
-        }
-    }
-
-
-
 
 }

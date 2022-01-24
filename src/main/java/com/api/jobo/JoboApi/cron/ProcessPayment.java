@@ -1,6 +1,7 @@
 package com.api.jobo.JoboApi.cron;
 
 
+import com.api.jobo.JoboApi.api.domain.BatchMpesaModels;
 import com.api.jobo.JoboApi.api.domain.Models;
 import com.api.jobo.JoboApi.api.domain.MpesaModels;
 import com.api.jobo.JoboApi.api.model.JobUpdateForm;
@@ -36,10 +37,10 @@ public class ProcessPayment {
     @Scheduled(fixedDelay = 5000, initialDelay = 20000) //every 10 seconds
     private void sendStk() {
 
-        List<MpesaModels.MpesaStkCallback> callbacks = stkCallbackFirebaseRepo.retrieveAll();
+        List<BatchMpesaModels.MpesaStkCallback> callbacks = stkCallbackFirebaseRepo.retrieveAll();
         System.out.println("callback are " + callbacks.size());
 
-        for (MpesaModels.MpesaStkCallback c : callbacks) {
+        for (BatchMpesaModels.MpesaStkCallback c : callbacks) {
 
             if (c.getResultCode() == 17) {
                 stkCallbackFirebaseRepo.remove(String.valueOf(c.getId()));
@@ -64,7 +65,7 @@ public class ProcessPayment {
                         //save items
                         //save metadata with items
 
-                        List<MpesaModels.MpesaCallbackMetadataItems> callbackMetadataItemsRepos = c.getCallbackMetadata().getMpesaCallbackMetadataItems();
+                        List<BatchMpesaModels.MpesaCallbackMetadataItems> callbackMetadataItemsRepos = c.getCallbackMetadata().getMpesaCallbackMetadataItems();
                         callbackMetadataItemsRepos.forEach(i -> {
                             if (i.getName().equals("Amount")) {
                                 payment.setAmount(i.getValue());

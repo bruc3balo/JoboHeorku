@@ -16,10 +16,16 @@ public class GlobalService {
     public static ServiceService serviceService;
     public static PaymentService paymentService;
     public static NotificationService notificationService;
+    public static CallBackService callBackService;
 
     @Autowired
     public void setJobService(JobService jobService) {
         GlobalService.jobService = jobService;
+    }
+
+    @Autowired
+    public void setCallBackService(CallBackService callBackService) {
+        GlobalService.callBackService = callBackService;
     }
 
     @Autowired

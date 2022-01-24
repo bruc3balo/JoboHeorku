@@ -203,6 +203,9 @@ public class GlobalVariables {
     public static final String TODAY_FAILED_JOBS = "Today's Failed Jobs";
     public static final String TODAY_COMPLETED_JOBS = "Today's Completed Jobs";
 
+    public static final String RESULT_CODE = "ResultCode";
+    public static final String RESULT_DESC = "ResultDesc";
+    public static final String CALLBACK_METADATA = "CallbackMetadata";
 
     public static Algorithm myAlgorithm;
 
@@ -271,7 +274,8 @@ public class GlobalVariables {
         GlobalVariables.businessShortCode = businessShortCode;
     }
 
-    @Value("https://mpesa-pi.herokuapp.com/api/v1/pay")
+    //@Value("https://mpesa-pi.herokuapp.com/api/v1/pay")
+    @Value("https://jobo-spring-api.herokuapp.com/api/v1/callback")
    // @Value("https://posthere.io/d5c6-4134-9fc6")
     public void setCallbackUrl(String callbackUrl) {
         GlobalVariables.callbackUrl = callbackUrl;
