@@ -54,7 +54,6 @@ public class CallbackController {
             }
 
 
-
             allCallbacks.forEach(i-> {
                 if (i.getCallbackMetadata() != null) {
                     i.getCallbackMetadata().setId(null);

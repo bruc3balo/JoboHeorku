@@ -26,14 +26,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.awt.*;
-import java.io.IOException;
 import java.net.URI;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.api.jobo.JoboApi.globals.GlobalService.jobService;
 import static com.api.jobo.JoboApi.globals.GlobalService.userService;
 import static com.api.jobo.JoboApi.globals.GlobalVariables.*;
 import static com.api.jobo.JoboApi.utils.DataOps.filterRequestParams;
@@ -70,7 +66,7 @@ public class UserController {
 
             Page<AppUser> userList = userService.getAllUsers(new UserPredicate(new AppUser(id, name, username, email)), PageRequest.of(pageNumber, pageSze));
             
-            JsonResponse response = JsonSetSuccessResponse.setResponse(ApiCode.SUCCESS.getCode(), ApiCode.SUCCESS.getDescription(), null, userList.getContent());
+            JsonResponse response = JsonSetSuccessResponse.setResponse(ApiCode.SUCCESS.getCode(), ApiCode.SUCCESS.getDescription(), null, userList.getContent().stream().sorted(Comparator.comparing(AppUser::getId)).collect(Collectors.toList()));
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
