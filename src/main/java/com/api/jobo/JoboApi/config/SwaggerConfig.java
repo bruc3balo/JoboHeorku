@@ -21,7 +21,7 @@ import static com.api.jobo.JoboApi.globals.GlobalVariables.PACKAGE;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.api.jobo")).paths(PathSelectors.any()).build().apiInfo(this.apiInfo());
+        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.api.jobo.JoboApi")).paths(PathSelectors.any()).build().apiInfo(this.apiInfo());
     }
 
     private ApiInfo apiInfo() {
