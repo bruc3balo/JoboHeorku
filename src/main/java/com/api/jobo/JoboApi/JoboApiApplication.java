@@ -25,7 +25,7 @@ public class JoboApiApplication {
     @Bean
     CommandLineRunner runner() {
         return args -> {
-            //userService.defaults();
+            userService.defaults();
         };
 
     }

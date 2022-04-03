@@ -69,8 +69,6 @@ public class UserPredicate implements Specification<AppUser> {
                 p.getExpressions().add(cb.equal(cb.upper(root.get("disabled")), appUser.getDisabled()));
             }
 
-
-
         }
 
         if (id != null) {

@@ -23,12 +23,14 @@ public abstract class AbstractFirestoreRepository<T> {
         this.collectionReference = firestore.collection(collection);
         this.collectionName = collection;
         this.parameterizedType = getParameterizedType();
+
     }
 
     private Class<T> getParameterizedType() {
         ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
         return (Class<T>) type.getActualTypeArguments()[0];
     }
+
 
     public T save(T model) {
         String documentId = getDocumentId(model);

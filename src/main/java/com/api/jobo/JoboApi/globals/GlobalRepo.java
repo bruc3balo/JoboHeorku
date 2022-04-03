@@ -30,7 +30,6 @@ public class GlobalRepo {
         GlobalRepo.stkCallbackFirebaseRepo = stkCallbackFirebaseRepo;
     }
 
-
     @Autowired
     public void setUserRepo(UserRepo userRepo) {
         GlobalRepo.userRepo = userRepo;
