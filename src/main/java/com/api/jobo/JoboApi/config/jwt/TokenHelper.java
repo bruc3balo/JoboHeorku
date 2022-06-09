@@ -35,7 +35,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.api.jobo.JoboApi.config.FirestoreBatchConfig.firebaseDatabase;
-import static com.api.jobo.JoboApi.config.FirestoreBatchConfig.val;
 import static com.api.jobo.JoboApi.globals.GlobalVariables.*;
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static java.util.Arrays.stream;
@@ -81,9 +80,9 @@ public class TokenHelper {
         tokens.put("auth_type", authType);
 
 
-        if (!val) {
+       
             new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-        }
+        
     }
 
 

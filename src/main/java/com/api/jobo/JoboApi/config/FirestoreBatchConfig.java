@@ -28,7 +28,7 @@ public class FirestoreBatchConfig {
     public static Firestore firestore;
     public static FirebaseAuth firebaseAuth;
     public static FirebaseDatabase firebaseDatabase;
-    public static boolean val = false;
+   // public static boolean val = false;
 
 
     @Bean
@@ -61,19 +61,6 @@ public class FirestoreBatchConfig {
 
                 firebaseAuth = FirebaseAuth.getInstance();
                 logger.info("Firebase Auth Initialized");
-
-                firebaseDatabase.getReference("Val").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        val = (Boolean) dataSnapshot.getValue();
-                        System.out.println("Val is " + val);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
             }
 
